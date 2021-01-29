@@ -1,0 +1,100 @@
+@startuml
+
+hide methods
+hide fields
+class Program
+class SprayLoop
+
+package Communication {
+  package ApiServerIpc {
+    interface IApiServerBridge
+    class ApiServerBridge
+  }
+
+  package BoomControllerIpc {
+    interface IBoomControllerBridge
+    class BoomControllerBridge
+  }
+
+  package GpsIpc {
+    interface IGpsBridge
+    class GpsBridge
+  }
+
+  package Sockets {
+    interface IUdpSocket
+    class UdpSocket
+  }
+}
+
+package External {
+  package Meteorological {
+    interface IMeterologicalReader
+    class MockMeterologicalReader
+  }
+
+  package SprayModel {
+    class PythonRunner
+  }
+}
+
+package Model {
+  class GpsLocation
+  class Nozzle
+  class NZTMPoint
+  class SprayPoint
+}
+
+package Exception {
+  class HelicopterOutOfSprayAreaException
+  class InvalidMatrixStepException
+  class PythonSprayModelException
+}
+
+package Util {
+  package Reader {
+    interface IFileReader
+    class CsvFileReader
+    class RasterFileReader
+  }
+
+  class CoordinateConverter
+  class HelicopterLocator
+}
+
+IGpsBridge <|.down. GpsBridge
+IApiServerBridge <|.down. ApiServerBridge
+IBoomControllerBridge <|.down. BoomControllerBridge
+IUdpSocket <|.down. UdpSocket
+IMeterologicalReader <|.down. MockMeterologicalReader
+IFileReader <|.down. RasterFileReader
+IFileReader <|.down. CsvFileReader
+
+Program *-down- SprayLoop
+
+HelicopterLocator o-up- InvalidMatrixStepException
+HelicopterLocator o-up- HelicopterOutOfSprayAreaException
+PythonRunner o-up- PythonSprayModelException
+
+IGpsBridge o-up- GpsLocation
+GpsBridge o-down- IUdpSocket
+ApiServerBridge o-down- IUdpSocket
+BoomControllerBridge o-down- IUdpSocket
+
+IMeterologicalReader o-up- NZTMPoint
+
+IFileReader o-up- NZTMPoint
+IFileReader o-up- SprayPoint
+HelicopterLocator o-up- NZTMPoint
+
+SprayLoop o-up- GpsLocation
+SprayLoop o-down- PythonRunner
+SprayLoop o-down- CoordinateConverter
+SprayLoop o-down- IFileReader
+SprayLoop o-down- HelicopterLocator
+SprayLoop o-down- IGpsBridge
+SprayLoop o-down- IApiServerBridge
+SprayLoop o-down- IBoomControllerBridge
+SprayLoop o-down- IUdpSocket
+
+@enduml

@@ -1,0 +1,29 @@
+stages:
+    - build-server
+    - test-server
+    - build-spray
+    - test-spray
+
+build server solution:
+    stage: build-server
+    script:
+        - cd WildingPines
+        - dotnet build
+
+test server solution:
+    stage: test-server
+    script:
+        - cd WildingPines
+        - dotnet test
+        
+build spray module solution:
+    stage: build-spray
+    script:
+        - cd SprayModule
+        - dotnet build
+
+test spray module solution:
+    stage: test-spray
+    script:
+        - cd SprayModule
+        - dotnet test

@@ -1,0 +1,79 @@
+@startuml
+
+hide method
+hide field
+
+together {
+  class Startup
+  class Program
+}
+
+package Communication {
+  package SprayModuleIpc {
+    interface ISprayModuleBridge
+    class SprayModuleBridge
+  }
+
+  package Sockets {
+    interface IUdpSocket
+    class UdpSocket
+  }
+}
+
+package Io {
+  package Reports {
+    interface IUsbReportsExporter
+    class UsbReportsExporter
+  }
+
+  package SprayPlans {
+    interface ILocalSprayPlansManager
+    interface IUsbSprayPointsImporter
+    class LocalSprayPlansManager
+    class UsbSprayPointsImporter
+  }
+
+  package Usb {
+    interface IUsbIo
+    class UsbIo
+  }
+}
+
+' Controllers
+package Controllers {
+  class FlightController
+  class HealthController
+  class LifecycleController
+  class NozzlesController
+  class ReportsController
+  class SprayPointsController
+  class UsbController
+}
+
+
+Program .down.> Startup
+
+' Utilities implementing interfaces
+UdpSocket .up.|> IUdpSocket
+SprayModuleBridge .up.|> ISprayModuleBridge
+UsbIo .up.|> IUsbIo
+LocalSprayPlansManager .up.|> ILocalSprayPlansManager
+UsbSprayPointsImporter .up.|> IUsbSprayPointsImporter
+UsbReportsExporter .up.|> IUsbReportsExporter
+
+' Utilities composition
+UsbReportsExporter *-down- IUsbIo
+LocalSprayPlansManager *-up- IUsbSprayPointsImporter
+UsbSprayPointsImporter *-down- IUsbIo
+SprayModuleBridge *-down- IUdpSocket
+
+
+' Controller compositions
+FlightController *-down- ISprayModuleBridge
+NozzlesController *-down- ISprayModuleBridge
+ReportsController *-down- IUsbReportsExporter
+SprayPointsController *-down- IUsbSprayPointsImporter
+SprayPointsController *-down- ILocalSprayPlansManager
+UsbController *-down- IUsbIo
+
+@enduml

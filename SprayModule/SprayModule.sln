@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SprayModule", "SprayModule\SprayModule.csproj", "{C774F339-3E49-49D4-BD0A-89859A19385B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SprayModuleTests", "SprayModuleTests\SprayModuleTests.csproj", "{BB29C712-59C3-4E24-A777-18CDFEA30C41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C774F339-3E49-49D4-BD0A-89859A19385B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C774F339-3E49-49D4-BD0A-89859A19385B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C774F339-3E49-49D4-BD0A-89859A19385B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C774F339-3E49-49D4-BD0A-89859A19385B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB29C712-59C3-4E24-A777-18CDFEA30C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB29C712-59C3-4E24-A777-18CDFEA30C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB29C712-59C3-4E24-A777-18CDFEA30C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB29C712-59C3-4E24-A777-18CDFEA30C41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,29 @@
+# This file tells Git to not keep track of these things
+
+.vscode
+.vs
+.DS_Store
+__pycache__
+bin/
+obj/
+.idea
+*.log
+.bag
+out-files/
+*.bag
+
+# Virtual environments for Python
+venv/*
+venv
+*venv/
+
+*.DotSettings.user
+
+# Spray files (can be several GBs)
+*.tif
+
+# Files local to the C# project in the NUC or development machine
+local_files/
+
+# IDE settings for users
+*.user

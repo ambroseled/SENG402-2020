@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
+    android:background="@color/colorPrimaryDark"
+    android:baselineAligned="false"
+    android:divider="?android:attr/dividerHorizontal"
+    android:showDividers="middle"
+    tools:context=".MainActivity">
+
+    <!--
+    This layout is a two-pane layout for the Items
+    master/detail flow.
+    
+    -->
+
+    <Button
+        android:id="@+id/shutdownButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/redAccent"
+        android:drawableStart="@drawable/ic_power_24dp"
+        android:text="Shut down"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/sections_list"
+        app:layout_constraintStart_toStartOf="@+id/sections_list" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sections_list"
+        android:name="com.doc.wildingpinesui.ItemListFragment"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/shutdownButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusTextView"
+        tools:context="com.doc.wildingpinesui.MainActivity"
+        tools:listitem="@layout/sidebar_section_item" />
+
+    <FrameLayout
+        android:id="@+id/current_section_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sections_list"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nucTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="NUC"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/statusTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:maxLines="5"
+        android:scrollHorizontally="false"
+        android:text="Last sync"
+        app:layout_constraintEnd_toStartOf="@+id/current_section_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nucTextView" />
+
+    <ImageView
+        android:id="@+id/statusCircleImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="-8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="-8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nucTextView"
+        app:layout_constraintEnd_toStartOf="@+id/current_section_container"
+        app:layout_constraintStart_toEndOf="@+id/nucTextView"
+        app:layout_constraintTop_toTopOf="@+id/nucTextView"
+        app:srcCompat="@drawable/ic_status_circle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

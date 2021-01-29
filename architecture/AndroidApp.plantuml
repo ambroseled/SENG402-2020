@@ -1,0 +1,105 @@
+@startuml
+
+hide method
+hide field
+
+together {
+  class MainActivity
+  class MainActivityViewModel
+  class UnimplementedSectionFragment
+}
+
+package modules {
+  package setplan {
+    class SetPlanFragment
+    class SetPlanViewModel
+    class SetPlanViewModelFactory
+  }
+
+  package syncfiles {
+    class SyncFilesFragment
+    class SyncFilesViewModel
+    class SyncFilesViewModelFactory
+  }
+  
+  package testnozzles {
+    class TestNozzlesFragment
+    class TestNozzlesViewModel
+    class TestNozzlesViewModelFactory
+  }
+}
+
+package network {
+  package apiservices {
+    class ApiHostSettings
+    interface INozzlesApiService
+    interface ISprayPlansApiService
+    interface ISprayReportsApiService
+    interface IStateChangeApiService
+  }
+
+  package datasources {
+    interface ISyncFilesDataSource
+    interface IStateChangeDataSource
+    interface INozzlesDataSource
+    class SyncFilesDataSource
+    class StateChangeDataSource
+    class NozzlesDataSource
+  }
+}
+
+package sidebar {
+  class SidebarSections
+  class SidebarSectionRecyclerView
+}
+
+MainActivity .down.> MainActivityViewModel
+SidebarSections .down.> UnimplementedSectionFragment
+SidebarSections .down.> TestNozzlesFragment
+SidebarSections .down.> SyncFilesFragment
+SidebarSections .down.> SetPlanFragment
+SidebarSectionRecyclerView .down.> SidebarSections
+MainActivity .down.> SidebarSectionRecyclerView
+
+
+' Data sources implementing interfaces
+SyncFilesDataSource .up.|> ISyncFilesDataSource
+StateChangeDataSource .up.|> IStateChangeDataSource
+NozzlesDataSource .up.|> INozzlesDataSource
+
+' Data sources and their dependencies
+NozzlesDataSource *-down- INozzlesApiService
+StateChangeDataSource *-down- IStateChangeApiService
+SyncFilesDataSource *-down- ISprayPlansApiService
+SyncFilesDataSource *-down- ISprayReportsApiService
+
+' API services
+INozzlesApiService .down.> ApiHostSettings
+ISprayPlansApiService .down.> ApiHostSettings
+ISprayReportsApiService .down.> ApiHostSettings
+IStateChangeApiService .down.> ApiHostSettings
+
+' Fragments and their dependencies
+SetPlanFragment .down.> SetPlanViewModelFactory
+SetPlanFragment .down.> SetPlanViewModel
+SyncFilesFragment .down.> SyncFilesViewModelFactory
+SyncFilesFragment .down.> SyncFilesViewModel
+TestNozzlesFragment .down.> TestNozzlesViewModelFactory
+TestNozzlesFragment .down.> TestNozzlesViewModel
+
+' ViewModelFactories and their dependencies
+SetPlanViewModelFactory .up.> SetPlanViewModel
+SetPlanViewModelFactory *-down- ISyncFilesDataSource
+SetPlanViewModelFactory *-down- IStateChangeDataSource
+SyncFilesViewModelFactory .up.> SyncFilesViewModel
+SyncFilesViewModelFactory *-down- ISyncFilesDataSource
+TestNozzlesViewModelFactory .up.> TestNozzlesViewModel
+TestNozzlesViewModelFactory *-down- INozzlesDataSource
+
+' ViewModels and their dependencies
+SetPlanViewModel .down.> ISyncFilesDataSource
+SetPlanViewModel .down.> IStateChangeDataSource
+SyncFilesViewModel .down.> ISyncFilesDataSource
+TestNozzlesViewModel .down.> INozzlesDataSource
+
+@enduml
